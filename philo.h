@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 22:42:55 by user42            #+#    #+#             */
-/*   Updated: 2022/05/13 18:42:56 by user42           ###   ########.fr       */
+/*   Updated: 2022/05/15 02:10:39 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,18 @@
 typedef struct s_philo
 {
 	pthread_t	philo;
+	pthread_mutex_t fork;
+	pthread_mutex_t print;
 	size_t		last_meal;
+	int		nbr_meal;
+	int		id;
 }		t_philo;
 
 typedef struct s_master
 {
 	t_philo		*philo;
 	int		nbphilo;
+	int		dead;
 	int		tdie;
 	int		teat;
 	int		tsleep;

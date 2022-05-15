@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 22:39:32 by user42            #+#    #+#             */
-/*   Updated: 2022/05/13 18:51:45 by user42           ###   ########.fr       */
+/*   Updated: 2022/05/15 02:10:34 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,23 @@
 
 int	ft_init_philo(t_master *master, t_philo *philo)
 {
+	int i;
+	int ide;
 
+	ide = 1;
+	i = -1;
+
+	while (++i < master->nbphilo)
+	{
+		philo[i].id = ide++;
+		philo[i].last_meal = 0;
+		philo[i].nbr_meal = 0;
+		//prendre fourchette?
+	}
+	return (0);
 }
 
-int	create_threads(t_master *master, t_philo *philo)
+int	ft_create_threads(t_master *master, t_philo *philo)
 {
 	int i;
 
@@ -66,8 +79,22 @@ int	main(int ac, char **av)
 {
 	t_master *master;
 	t_philo *philo;
+	master = (t_master *)malloc(sizeof(t_master));
+	if (!master)
+		return (1);
 	if (parse(ac, av, master))
-		return (faire une fonction free-all ...);
+		return (ft_quit_free(master, philo);
+	philo = (t_philo *)malloc(sizeof(t_philo) * master->nbphilo);
+	if (!philo)
+		return(ft_quit_free(master, philo);
+	if (ft_init_philo(master, philo))
+		return (ft_quit_free(master, philo);
+	if (ft_start_philo(master, philo))
+		return (ft_quit_free(master, philo);
+	ft_free_philo(master, philo);
+	ft_destroy_all(master, philo);
+	return (0);
+
 	// faut initier les philos...
 	// faut démarrer les philos /threads
 	// faut terminier les threads, free philo...
