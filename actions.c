@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 18:50:00 by user42            #+#    #+#             */
-/*   Updated: 2022/05/15 16:03:01 by cgranja          ###   ########.fr       */
+/*   Updated: 2022/05/15 16:53:08 by cgranja          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,18 +50,51 @@ int	ft_philo_fight_foreat(t_master *master, t_philo *philo, int i)
 	{
 		master->phmaxeat++;
 	}
+	//fonctio usleep?
 	pthread_mutex_unlock(philo[i].mutex_lfork);
 	pthread_mutex_unlock(philo[i].mutex_rfork);
 	return (0);
 }	
 
-int ft_philo_sleep(t_master *master, t_philo *philo, int i)
+int	ft_you_are_dead(t_master *master, t_philo *philo)
 {
+	int i;
 
+	i = 0;
+	while (i < master->nbphilo)
+	{
+		if ((getstart_time - philo[i]->last_meal) > master->tdie)
+		{
+			master.dead = 1;
+			pthread_mutex_unlock(philo[i].print);
+			ft_print_actions(master, philo, i, "died\n");
+			return (1);
+		}
+	}
+	return (0);
+}
+
+void ft_philo_sleep(t_master *master, t_philo *philo, int i)
+{
+	ft_print_actions(master, philo, i, "is sleeping\n");
+
+}
+
+void ft_philo_thinking(t_master *master, t_philo *philo, int i)
+{
+	ft_print_actions(master, philo , i, "is thinking\n");
 }
 
 int ft_parsing_actions(t_master *master, t_philo *philo, int i)
 {
+	if (master->phmaxeat >= master->nbphilo)
+		return (1);
+	if (ft_philo_fight_foreat(master, philo, i) == 1)
+		return (1)
+	ft_philo_sleep(master, philo , i);
+	//faire une fonction stop sleep , usleep?
+	ft_philo_thinking(master, philo, i);
+	return (0);
 
 }
 

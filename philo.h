@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 22:42:55 by user42            #+#    #+#             */
-/*   Updated: 2022/05/15 15:30:48 by cgranja          ###   ########.fr       */
+/*   Updated: 2022/05/15 16:58:19 by cgranja          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	ft_init_philo(t_master, t_philo *philo);
  */
 
 int	ft_start_philo(t_master *master, t_philo *philo);
-int	assign_forks(int i, t_master *master, t_philo *philo);
+int	assign_philo_forks(int i, t_master *master, t_philo *philo);
 
 /*
  * *******************************ROUTINE**********************
@@ -93,6 +93,12 @@ void	*routine(void *arg);
  * *************************************ACTIONS***************
  */
 
+int	ft_parsing_actions(t_master *master, t_philo *philo, int i);
+int	ft_you_are_dead(t_master *master, t_philo *philo);
+void	ft_philo_sleep(t_master *master, t_philo *philo, int i);
+void	ft_philo_thinking(t_master *master, t_philo *philo, int i);
+int	ft_philo_fight_foreat(t_master *master, t_philo *philo, int i);
+void	ft_print_actions(t_master *master, t_philo *philo, int i, char *str);
 
 /*
  * ****************************CLEAN**************************
