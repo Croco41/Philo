@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 22:42:55 by user42            #+#    #+#             */
-/*   Updated: 2022/05/15 02:10:39 by user42           ###   ########.fr       */
+/*   Updated: 2022/05/15 15:30:48 by cgranja          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@
 typedef struct s_philo
 {
 	pthread_t	philo;
-	pthread_mutex_t fork;
+	pthread_mutex_t mutex_lfork;
+	pthread_mutex_t mutex_rfork;
 	pthread_mutex_t print;
 	size_t		last_meal;
 	int		nbr_meal;
@@ -50,14 +51,54 @@ typedef struct s_master
 	int		tsleep;
 	int		maxeat;
 	size_t		start_time;
+	int		end;
+	int		phmaxeat;
 
 }		t_master;
 
 
+/*
+ * *************************UTILS*************************
+ */
+
+int	ft_atoi(char *str);
+void	ft_putnbr(size_t n);
+void	ft_putstr(char *str);
 
 
+/*
+ *  ****************************MAIN************************
+ */
+
+int	main(int ac, char **av);
+char	*parsing(int ac, char **av, t_master *master);
+int	ft_create_threads(t_master *master, t_philo *philo);
+int	ft_init_philo(t_master, t_philo *philo);
+
+/*
+ * ***************************PHILO**************************
+ */
+
+int	ft_start_philo(t_master *master, t_philo *philo);
+int	assign_forks(int i, t_master *master, t_philo *philo);
+
+/*
+ * *******************************ROUTINE**********************
+ */
+
+size_t	getstart_time(void);
+void	*routine(void *arg);
+
+/*
+ * *************************************ACTIONS***************
+ */
 
 
+/*
+ * ****************************CLEAN**************************
+ */
+
+int ft_quit_free(t_master *master, t_philo *philo);
 
 
 

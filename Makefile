@@ -6,7 +6,7 @@
 #    By: user42 <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/12 22:36:00 by user42            #+#    #+#              #
-#    Updated: 2022/05/13 23:16:34 by user42           ###   ########.fr        #
+#    Updated: 2022/05/15 15:12:28 by cgranja          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,10 @@ SRC		=	main.c \
 			philo.c \
 			action.c \
 			routine.c \
-
+			clean.c \
+			utils/ft_atoi.c \
+			utils/ft_putnbr.c \
+			utils/ft_putstr.c \
 
 OBJ		=	$(SRC:.c=.o)
 
