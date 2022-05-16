@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 22:39:32 by user42            #+#    #+#             */
-/*   Updated: 2022/05/16 02:06:45 by user42           ###   ########.fr       */
+/*   Updated: 2022/05/16 14:53:42 by cgranja          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,12 @@ int	ft_create_threads(t_master *master, t_philo *philo)
 	i = -1;
 	while (++i < master->nbphilo)
 	{
-		if (pthread_create(&(philo[i].philo), NULL, &routine, NULL) != 0)
+		if (pthread_create(&(philo[i].philo), NULL, &routine, master) != 0)
 			return (1);
 	}
 	i = -1;
-	//check death
+	if (master->end == 1)
+		return (1);
 	while (++i < master->nbphilo)
 	{
 		if (pthread_join(philo[i].philo, NULL) != 0)
@@ -56,7 +57,7 @@ int	ft_create_threads(t_master *master, t_philo *philo)
 
 char	*parsing(int ac, char **av, t_master *master)
 {
-	if (ac < 5 && ac > 6)
+	if (ac < 5 || ac > 6)
 		return ("error the number of parameters is not good\n");
 	master->nbphilo = ft_atoi(av[1]);
 	if (master->nbphilo < 1)

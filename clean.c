@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 17:27:31 by user42            #+#    #+#             */
-/*   Updated: 2022/05/16 01:49:56 by user42           ###   ########.fr       */
+/*   Updated: 2022/05/16 13:32:21 by cgranja          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,11 @@ int ft_destroy_all(t_master *master, t_philo *philo)
 	i = 0;
 	while (i < master->nbphilo)
 	{
-		pthread_mutex_destroy(philo[i].mutex_lfork);
-		pthread_mutex_destroy(philo[i].mutex_rfork);
+		pthread_mutex_destroy(philo[i].lfork);
+		pthread_mutex_destroy(philo[i].rfork);
 		pthread_mutex_destroy(philo[i].print);
-		free(philo[i].mutex_lfork);
-		free(philo[i].mutex_rfork);
+		free(philo[i].lfork);
+		free(philo[i].rfork);
 		i++;
 	}
 	free(master);

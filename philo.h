@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 22:42:55 by user42            #+#    #+#             */
-/*   Updated: 2022/05/16 02:22:38 by user42           ###   ########.fr       */
+/*   Updated: 2022/05/16 14:27:14 by cgranja          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ typedef struct s_master
 	int			tsleep;
 	int			maxeat;
 	size_t		start_time;
-	int			end;
+	int			end; //ini dansstart philo mais m'en sers pas?
 	int			phmaxeat;
 
 }		t_master;

@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 22:38:12 by user42            #+#    #+#             */
-/*   Updated: 2022/05/16 02:12:50 by user42           ###   ########.fr       */
+/*   Updated: 2022/05/16 14:39:35 by cgranja          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,13 @@ int	ft_start_philo(t_master *master, t_philo *philo)
 {
 	int		i;
 
-	i = 0;
+	i = -1;
+	master->iofp = 0;
 	master->philo = philo;
 	master->phmaxeat = 0;
 	master->end = 0;
 	master->start_time = getstart_time();
-	while (i++ < master->nbphilo)
+	while (++i < master->nbphilo)
 	{
 		philo[i].last_meal = getstart_time();
 	}
@@ -33,7 +34,7 @@ int	ft_start_philo(t_master *master, t_philo *philo)
 
 int	link_philo_forks(int i, t_master *master, t_philo *philo)
 {
-	if (i == 0)
+	if (!i)
 	{
 		philo[i].lfork = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
 		philo[i].rfork = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
@@ -50,8 +51,10 @@ int	link_philo_forks(int i, t_master *master, t_philo *philo)
 	}
 	else
 	{	
-		philo[i].rfork = philo[i + 1].lfork;
+		philo[i].rfork = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
 		philo[i].lfork = philo[i -1].rfork;
+		if (!philo[i].rfork || pthread_mutex_init(philo[i].rfork, NULL))
+			return (1);
 	}
 	return (0);
 }

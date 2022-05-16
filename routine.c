@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 19:12:25 by user42            #+#    #+#             */
-/*   Updated: 2022/05/16 01:57:46 by user42           ###   ########.fr       */
+/*   Updated: 2022/05/16 13:53:53 by cgranja          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	*routine(void *arg)
 	iofp = master->iofp;
 	master->iofp++;
 	philo = master->philo;
-	while (0)
+	while (1)
 	{
 		if (ft_parsing_actions(master, philo, iofp) == 1)
 			break ;

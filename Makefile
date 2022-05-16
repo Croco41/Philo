@@ -6,7 +6,7 @@
 #    By: user42 <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/12 22:36:00 by user42            #+#    #+#              #
-#    Updated: 2022/05/15 22:21:49 by user42           ###   ########.fr        #
+#    Updated: 2022/05/16 13:42:22 by cgranja          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ RM		=	rm -f
 
 CFLAGS		=	-Wall -Wextra -Werror -pthread
 
-CFS			=	-fsanitize=address -g3
+#CFS			=	-fsanitize=address -g3
 #CFS				= -g
 
 

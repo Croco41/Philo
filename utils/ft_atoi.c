@@ -6,7 +6,7 @@
 /*   By: cgranja <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 14:06:53 by cgranja           #+#    #+#             */
-/*   Updated: 2022/05/16 02:00:26 by user42           ###   ########.fr       */
+/*   Updated: 2022/05/16 13:47:30 by cgranja          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,5 @@ int	ft_atoi(char *str)
 	}
 	if (str[i])
 		return (-2);
-	return (result * sign);
+	return (result);
 }
