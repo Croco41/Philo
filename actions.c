@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 18:50:00 by user42            #+#    #+#             */
-/*   Updated: 2022/05/16 15:36:43 by cgranja          ###   ########.fr       */
+/*   Updated: 2022/05/16 16:09:51 by cgranja          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,17 +53,8 @@ printf("nbmeal: %d\n", philo[i].nbr_meal);
 	ft_print_actions(master, philo, i, "has taken a fork\n");
 	if (master->nbphilo == 1)
 	{
-		printf("tdie %d\n", master->tdie);
-
-		while ((int)getstart_time() - (int)master->start_time < master->tdie)
-		{
-			printf("%zu & %d\n", getstart_time(), master->tdie);
+		while ((int)getstart_time() - (int)tmaster->start_time < master->tdie)
 			usleep(100);
-		}
-
-		printf("hdi");
-
-//		usleep(master->tdie * 1000 - (getstart_time() *1000) -master->start_time);
 		master->end = 1;
 		ft_print_actions(master, philo, i, "died\n");
 		return(1);
