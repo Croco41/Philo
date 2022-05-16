@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 22:42:55 by user42            #+#    #+#             */
-/*   Updated: 2022/05/16 17:52:35 by cgranja          ###   ########.fr       */
+/*   Updated: 2022/05/16 19:43:47 by cgranja          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int		link_philo_forks(int i, t_master *master, t_philo *philo);
 
 size_t	getstart_time(void);
 void	*routine(void *arg);
-int	waiting(t_master *master, size_t b, size_t c);
+int	waiting(t_master *master, int b, int c);
 /*
  * *************************************ACTIONS***************
  */

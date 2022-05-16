@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 18:50:00 by user42            #+#    #+#             */
-/*   Updated: 2022/05/16 18:12:52 by cgranja          ###   ########.fr       */
+/*   Updated: 2022/05/16 19:55:29 by cgranja          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,15 @@
 void	ft_print_actions(t_master *master, t_philo *philo, int i, char *str)
 {
 	pthread_mutex_lock(philo[i].print);
-	if (master->end == 0)
+	if (master->dead != 1)
 	{
-	ft_putnbr(getstart_time() - master->start_time);
+		ft_putnbr(getstart_time() - master->start_time);
 		write(1, " ", 1);
 		ft_putnbr((size_t)i + 1);
 		write(1, " ", 1);
 		ft_putstr(str);
 	}	
-	if (master->dead > 0 || master->end ==1) 
+	else if (master->dead > 0 && master->end == 0) 
 	{
 		master->end = 1;
 		ft_putnbr(getstart_time() - master->start_time);
@@ -56,27 +56,29 @@ int	ft_philo_fight_foreat(t_master *master, t_philo *philo, int i)
 	{
 		while ((int)getstart_time() - (int)master->start_time < master->tdie)
 			usleep(100);
-		master->end = 1;
-		ft_print_actions(master, philo, i, "died\n");
+		master->dead = 1;
+		//ft_print_actions(master, philo, i, "died\n");
 		return (1);
 	}
 	ft_print_actions(master, philo, i, "is eating\n");
 	pthread_mutex_lock(master->locktime);
 	philo[i].last_meal = getstart_time();
-	pthread_mutex_unlock(master->locktime);
 //printf("nblastmeal: %zu\n", philo[i].last_meal);
 	philo[i].nbr_meal++;
 	if (philo[i].nbr_meal == master->maxeat)
 	{
 		master->phmaxeat++;
-	}
+	}	
+	pthread_mutex_unlock(master->locktime);
 //	printf("--------------[%d]\n", master->teat);
-	if (waiting(master, master->start_time, master->teat))
+	if (waiting(master, (int)getstart_time(), master->teat) == 1)
 	{
 		pthread_mutex_unlock(philo[i].lfork);
 		pthread_mutex_unlock(philo[i].rfork);
 		return (1);
 	}
+
+//printf("--------------[%zu]\n", getstart_time());
 	pthread_mutex_unlock(philo[i].lfork);
 	pthread_mutex_unlock(philo[i].rfork);
 	return (0);
@@ -93,7 +95,6 @@ int	ft_you_are_dead(t_master *master, t_philo *philo)
 		if ((int)getstart_time() - (int)philo[i].last_meal > master->tdie)
 		{
 			master->dead = 1;
-			master->end = 1;
 			pthread_mutex_unlock(master->locktime);
 		//	pthread_mutex_unlock(philo[i].print);
 			ft_print_actions(master, philo, i, "died\n");

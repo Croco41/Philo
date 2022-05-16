@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 22:39:32 by user42            #+#    #+#             */
-/*   Updated: 2022/05/16 17:55:17 by cgranja          ###   ########.fr       */
+/*   Updated: 2022/05/16 19:27:03 by cgranja          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	ft_create_threads(t_master *master, t_philo *philo)
 	{
 		if (ft_you_are_dead(master, philo) == 1)
 		{
-			printf("DEAD\n");
+			//printf("DEAD\n");
 			break;
 		}
 	}
