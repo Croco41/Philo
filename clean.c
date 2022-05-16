@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 17:27:31 by user42            #+#    #+#             */
-/*   Updated: 2022/05/16 13:32:21 by cgranja          ###   ########.fr       */
+/*   Updated: 2022/05/16 16:13:33 by cgranja          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int ft_destroy_all(t_master *master, t_philo *philo)
 		pthread_mutex_destroy(philo[i].print);
 		free(philo[i].lfork);
 		free(philo[i].rfork);
+		free(philo[i].print);
 		i++;
 	}
 	free(master);
