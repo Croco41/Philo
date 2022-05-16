@@ -6,13 +6,12 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 22:42:55 by user42            #+#    #+#             */
-/*   Updated: 2022/05/17 00:07:10 by user42           ###   ########.fr       */
+/*   Updated: 2022/05/17 01:19:02 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
-
 
 # include <stdlib.h>
 # include <unistd.h>
@@ -32,30 +31,29 @@
 
 typedef struct s_philo
 {
-	pthread_t	philo;
-	pthread_mutex_t			*lfork;
-	pthread_mutex_t			*rfork;
-	pthread_mutex_t			*print;
-	size_t		last_meal;
-	int			nbr_meal;
-//	int		iofp;
+	pthread_t		philo;
+	pthread_mutex_t	*lfork;
+	pthread_mutex_t	*rfork;
+	size_t			last_meal;
+	int				nbr_meal;
 }		t_philo;
 
 typedef struct s_master
 {
-	t_philo		*philo;
-	pthread_mutex_t		*locktime;
-	int			iofp;
-	int			nbphilo;
-	int			dead;
-	int			tdie;
-	int			teat;
-	int			tsleep;
-	int			maxeat;
-	size_t		start_time;
-	int			end; //ini dansstart philo mais m'en sers pas?
-	int			phmaxeat;
-	int			tthink;
+	t_philo			*philo;
+	pthread_mutex_t	*locktime;
+	pthread_mutex_t	*print;
+	int				iofp;
+	int				nbphilo;
+	int				dead;
+	int				tdie;
+	int				teat;
+	int				tsleep;
+	int				maxeat;
+	size_t			start_time;
+	int				end;
+	int				phmaxeat;
+	int				tthink;
 
 }		t_master;
 
@@ -72,7 +70,7 @@ void	ft_putstr(char *str);
  */
 
 int		main(int ac, char **av);
-char	*parsing(int ac, char **av, t_master *master);
+int		parsing(int ac, char **av, t_master *master);
 int		ft_create_threads(t_master *master, t_philo *philo);
 int		ft_init_philo(t_master *master, t_philo *philo);
 
@@ -89,8 +87,8 @@ int		link_philo_forks(int i, t_master *master, t_philo *philo);
 
 size_t	getstart_time(void);
 void	*routine(void *arg);
-int	waiting(t_master *master, int b, int c);
-void	ft_print_actions(t_master *master, t_philo *philo, int i, char *str);
+int		waiting(t_master *master, int b, int c);
+void	ft_print_actions(t_master *master, int i, char *str);
 
 /*
  * *************************************ACTIONS***************
@@ -99,8 +97,7 @@ void	ft_print_actions(t_master *master, t_philo *philo, int i, char *str);
 int		ft_onephilo(t_master *master, t_philo *philo, int i);
 int		ft_parsing_actions(t_master *master, t_philo *philo, int i);
 int		ft_you_are_dead(t_master *master, t_philo *philo);
-int		ft_philo_sleep(t_master *master, t_philo *philo, int i);
-void	ft_philo_thinking(t_master *master, t_philo *philo, int i);
+int		ft_philo_sleep(t_master *master, int i);
 int		ft_philo_fight_foreat(t_master *master, t_philo *philo, int i);
 
 /*

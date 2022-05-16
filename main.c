@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 22:39:32 by user42            #+#    #+#             */
-/*   Updated: 2022/05/16 22:11:26 by user42           ###   ########.fr       */
+/*   Updated: 2022/05/17 01:02:35 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,20 @@
 int	ft_init_philo(t_master *master, t_philo *philo)
 {
 	int		i;
-	pthread_mutex_t		*print;
-//	pthread_mutex_t		*locktime;
 
 	i = -1;
-
 	master->locktime = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
 	if (!master->locktime || pthread_mutex_init(master->locktime, NULL))
 		return (1);
-	print = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
-	if (!print || pthread_mutex_init(print, NULL))
+	master->print = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
+	if (!master->print || pthread_mutex_init(master->print, NULL))
 		return (1);
 	while (++i < master->nbphilo)
 	{
-		//philo[i].iofp = ide++;
 		philo[i].last_meal = 0;
 		philo[i].nbr_meal = 0;
-		philo[i].print = print;
 		if (link_philo_forks(i, master, philo) == 1)
 			return (1);
-		//prendre fourchette?
 	}
 	return (0);
 }
@@ -53,10 +47,7 @@ int	ft_create_threads(t_master *master, t_philo *philo)
 	while (1)
 	{
 		if (ft_you_are_dead(master, philo) == 1 || master->end == 1)
-		{
-			//printf("DEAD\n");
-			break;
-		}
+			break ;
 	}
 	while (++i < master->nbphilo)
 	{
@@ -66,31 +57,31 @@ int	ft_create_threads(t_master *master, t_philo *philo)
 	return (0);
 }
 
-char	*parsing(int ac, char **av, t_master *master)
+int	parsing(int ac, char **av, t_master *master)
 {
 	if (ac < 5 || ac > 6)
-		return ("error the number of parameters is not good\n");
+		return (printf("_error the number of parameters is not good\n"));
 	master->nbphilo = ft_atoi(av[1]);
 	if (master->nbphilo < 1)
-		return ("error: we need at least 1 philo\n");
+		return (printf("error: we need at least 1 philo\n"));
 	master->tdie = ft_atoi(av[2]);
 	if (master->tdie < 1)
-		return ("error: Parameter 2, time to die is invalid\n");
+		return (printf("error: Parameter 2, time to die is invalid\n"));
 	master->teat = ft_atoi(av[3]);
 	if (master->teat < 1)
-		return ("error: Parameter 3, time to eat is invalid\n");
+		return (printf("error: Parameter 3, time to eat is invalid\n"));
 	master->tsleep = ft_atoi(av[4]);
 	if (master->tsleep < 1)
-		return ("error: Parameter 4, time to sleep, is invalid\n");
+		return (printf("error: Parameter 4, time to sleep, is invalid\n"));
 	master->maxeat = -1;
 	if (ac == 6)
 	{
 		master->maxeat = ft_atoi(av[5]);
 		if (master->maxeat < 1)
-			return ("error: arg 5 (optional) is: number of times must eat");
+			return (printf("error: arg 5 (opt) is: nbr of times must eat\n"));
 	}
 	master->dead = -1;
-	return (NULL);
+	return (0);
 }
 
 int	main(int ac, char **av)
@@ -111,10 +102,6 @@ int	main(int ac, char **av)
 		return (ft_quit_free(master, philo));
 	if (ft_start_philo(master, philo))
 		return (ft_quit_free(master, philo));
-	//ft_free_philo(master, philo);
 	ft_destroy_all(master, philo);
 	return (0);
-	// faut initier les philos...
-	// faut démarrer les philos /threads
-	// faut terminier les threads, free philo...
 }

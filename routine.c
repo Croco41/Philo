@@ -6,15 +6,15 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 19:12:25 by user42            #+#    #+#             */
-/*   Updated: 2022/05/17 00:00:16 by user42           ###   ########.fr       */
+/*   Updated: 2022/05/17 01:13:33 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	ft_print_actions(t_master *master, t_philo *philo, int i, char *str)
+void	ft_print_actions(t_master *master, int i, char *str)
 {
-	pthread_mutex_lock(philo[i].print);
+	pthread_mutex_lock(master->print);
 	pthread_mutex_lock(master->locktime);
 	if (master->dead != 1)
 	{
@@ -34,21 +34,20 @@ void	ft_print_actions(t_master *master, t_philo *philo, int i, char *str)
 		ft_putstr(str);
 	}
 	pthread_mutex_unlock(master->locktime);
-	pthread_mutex_unlock(philo[i].print);
+	pthread_mutex_unlock(master->print);
 }
 
 int	waiting(t_master *master, int b, int c)
 {
-
 	while (((int)getstart_time() - b) < c)
 	{
-		pthread_mutex_lock(master->locktime);	
+		pthread_mutex_lock(master->locktime);
 		if (master->end)
 		{
-			pthread_mutex_unlock(master->locktime);	
+			pthread_mutex_unlock(master->locktime);
 			return (1);
 		}
-		pthread_mutex_unlock(master->locktime);	
+		pthread_mutex_unlock(master->locktime);
 		usleep(100);
 	}
 	return (0);
@@ -71,15 +70,12 @@ void	*routine(void *arg)
 	t_philo		*philo;
 	int			iofp;
 
-	master = (t_master *)arg;	
-	pthread_mutex_lock(master->locktime);	
+	master = (t_master *)arg;
+	pthread_mutex_lock(master->locktime);
 	iofp = master->iofp;
 	master->iofp++;
-	//philo = master->philo;
-	pthread_mutex_unlock(master->locktime);	
+	pthread_mutex_unlock(master->locktime);
 	philo = master->philo;
-	//master->start_time = getstart_time();
-	//pthread_mutex_unlock(master->locktime);	
 	if (master->iofp % 2 != 0 && master->nbphilo != 1)
 		waiting(master, master->start_time, 15);
 	while (1)
