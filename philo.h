@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 22:42:55 by user42            #+#    #+#             */
-/*   Updated: 2022/05/16 14:27:14 by cgranja          ###   ########.fr       */
+/*   Updated: 2022/05/16 17:52:35 by cgranja          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_philo
 typedef struct s_master
 {
 	t_philo		*philo;
+	pthread_mutex_t		*locktime;
 	int			iofp;
 	int			nbphilo;
 	int			dead;
@@ -87,14 +88,14 @@ int		link_philo_forks(int i, t_master *master, t_philo *philo);
 
 size_t	getstart_time(void);
 void	*routine(void *arg);
-
+int	waiting(t_master *master, size_t b, size_t c);
 /*
  * *************************************ACTIONS***************
  */
 
 int		ft_parsing_actions(t_master *master, t_philo *philo, int i);
 int		ft_you_are_dead(t_master *master, t_philo *philo);
-void	ft_philo_sleep(t_master *master, t_philo *philo, int i);
+int		ft_philo_sleep(t_master *master, t_philo *philo, int i);
 void	ft_philo_thinking(t_master *master, t_philo *philo, int i);
 int		ft_philo_fight_foreat(t_master *master, t_philo *philo, int i);
 void	ft_print_actions(t_master *master, t_philo *philo, int i, char *str);

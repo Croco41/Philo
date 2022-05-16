@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 22:39:32 by user42            #+#    #+#             */
-/*   Updated: 2022/05/16 14:53:42 by cgranja          ###   ########.fr       */
+/*   Updated: 2022/05/16 17:55:17 by cgranja          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,13 @@ int	ft_init_philo(t_master *master, t_philo *philo)
 {
 	int		i;
 	pthread_mutex_t		*print;
+//	pthread_mutex_t		*locktime;
 
 	i = -1;
+
+	master->locktime = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
+	if (!master->locktime || pthread_mutex_init(master->locktime, NULL))
+		return (1);
 	print = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
 	if (!print || pthread_mutex_init(print, NULL))
 		return (1);
@@ -45,8 +50,14 @@ int	ft_create_threads(t_master *master, t_philo *philo)
 			return (1);
 	}
 	i = -1;
-	if (master->end == 1)
-		return (1);
+	while (1)
+	{
+		if (ft_you_are_dead(master, philo) == 1)
+		{
+			printf("DEAD\n");
+			break;
+		}
+	}
 	while (++i < master->nbphilo)
 	{
 		if (pthread_join(philo[i].philo, NULL) != 0)
