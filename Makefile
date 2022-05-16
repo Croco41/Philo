@@ -6,7 +6,7 @@
 #    By: user42 <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/12 22:36:00 by user42            #+#    #+#              #
-#    Updated: 2022/05/15 15:12:28 by cgranja          ###   ########.fr        #
+#    Updated: 2022/05/15 22:21:49 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME	=	philo
 
 SRC		=	main.c \
 			philo.c \
-			action.c \
+			actions.c \
 			routine.c \
 			clean.c \
 			utils/ft_atoi.c \
@@ -37,10 +37,10 @@ all		:	$(NAME)
 
 
 $(NAME) :	$(OBJ)
-			$(CC) $(CFLAGS) -o $(NAME) $(SRC)
+			$(CC) $(CFLAGS) -o $(NAME) $(OBJ)
 
 %.o:	%.c
-	$(CC) -c $(CFLAGS) $(CFS) -o $@ $<
+	$(CC) -o $@ -c  $< $(CFLAGS) $(CFS)
 
 clean	:
 			$(RM) $(OBJ)

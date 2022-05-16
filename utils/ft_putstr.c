@@ -6,24 +6,22 @@
 /*   By: cgranja <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 14:46:11 by cgranja           #+#    #+#             */
-/*   Updated: 2022/05/15 14:48:18 by cgranja          ###   ########.fr       */
+/*   Updated: 2022/05/16 01:58:57 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-void ft_putstr(char *str)
+void	ft_putstr(char *str)
 {
-	int i;
+	int		i;
 
 	i = 0;
 	if (!str)
 		return ;
 	while (str[i])
 	{
-		write(1, s[i], 1);
+		write(1, &str[i], 1);
 		i++;
 	}
-
 }
-

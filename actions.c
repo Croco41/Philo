@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 18:50:00 by user42            #+#    #+#             */
-/*   Updated: 2022/05/15 16:53:08 by cgranja          ###   ########.fr       */
+/*   Updated: 2022/05/16 02:15:29 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@
 // penser
 // truc global actions
 //
-
-
 void	ft_print_actions(t_master *master, t_philo *philo, int i, char *str)
 {
 	pthread_mutex_lock(philo[i].print);
@@ -44,9 +42,9 @@ int	ft_philo_fight_foreat(t_master *master, t_philo *philo, int i)
 	}
 	ft_print_actions(master, philo, i, "has taken a fork\n");
 	ft_print_actions(master, philo, i, "is eating\n");
-	philo[i].last_meal = get_time();
+	philo[i].last_meal = getstart_time();
 	philo[i].nbr_meal++;
-	if (philo[i].nbr_meal == master->maxeat;)
+	if (philo[i].nbr_meal == master->maxeat)
 	{
 		master->phmaxeat++;
 	}
@@ -58,43 +56,41 @@ int	ft_philo_fight_foreat(t_master *master, t_philo *philo, int i)
 
 int	ft_you_are_dead(t_master *master, t_philo *philo)
 {
-	int i;
+	int		i;
 
 	i = 0;
 	while (i < master->nbphilo)
 	{
-		if ((getstart_time - philo[i]->last_meal) > master->tdie)
+		if (getstart_time() - philo[i].last_meal > (size_t)master->tdie)
 		{
-			master.dead = 1;
+			master->dead = 1;
 			pthread_mutex_unlock(philo[i].print);
 			ft_print_actions(master, philo, i, "died\n");
 			return (1);
 		}
+		i++;
 	}
 	return (0);
 }
 
-void ft_philo_sleep(t_master *master, t_philo *philo, int i)
+void	ft_philo_sleep(t_master *master, t_philo *philo, int i)
 {
 	ft_print_actions(master, philo, i, "is sleeping\n");
-
 }
 
-void ft_philo_thinking(t_master *master, t_philo *philo, int i)
+void	ft_philo_thinking(t_master *master, t_philo *philo, int i)
 {
 	ft_print_actions(master, philo , i, "is thinking\n");
 }
 
-int ft_parsing_actions(t_master *master, t_philo *philo, int i)
+int	ft_parsing_actions(t_master *master, t_philo *philo, int i)
 {
 	if (master->phmaxeat >= master->nbphilo)
 		return (1);
 	if (ft_philo_fight_foreat(master, philo, i) == 1)
-		return (1)
+		return (1);
 	ft_philo_sleep(master, philo , i);
 	//faire une fonction stop sleep , usleep?
 	ft_philo_thinking(master, philo, i);
 	return (0);
-
 }
-

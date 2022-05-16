@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 22:42:55 by user42            #+#    #+#             */
-/*   Updated: 2022/05/15 16:58:19 by cgranja          ###   ########.fr       */
+/*   Updated: 2022/05/16 02:22:38 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <unistd.h>
 # include <stdarg.h>
 # include <stdio.h>
-# include <sys/times.h>
+# include <sys/time.h>
 # include <pthread.h>
 
 # define RED "\033[1;31m"
@@ -33,54 +33,53 @@
 typedef struct s_philo
 {
 	pthread_t	philo;
-	pthread_mutex_t mutex_lfork;
-	pthread_mutex_t mutex_rfork;
-	pthread_mutex_t print;
+	pthread_mutex_t			*lfork;
+	pthread_mutex_t			*rfork;
+	pthread_mutex_t			*print;
 	size_t		last_meal;
-	int		nbr_meal;
-	int		id;
+	int			nbr_meal;
+//	int		iofp;
 }		t_philo;
 
 typedef struct s_master
 {
 	t_philo		*philo;
-	int		nbphilo;
-	int		dead;
-	int		tdie;
-	int		teat;
-	int		tsleep;
-	int		maxeat;
+	int			iofp;
+	int			nbphilo;
+	int			dead;
+	int			tdie;
+	int			teat;
+	int			tsleep;
+	int			maxeat;
 	size_t		start_time;
-	int		end;
-	int		phmaxeat;
+	int			end;
+	int			phmaxeat;
 
 }		t_master;
-
 
 /*
  * *************************UTILS*************************
  */
 
-int	ft_atoi(char *str);
+int		ft_atoi(char *str);
 void	ft_putnbr(size_t n);
 void	ft_putstr(char *str);
-
 
 /*
  *  ****************************MAIN************************
  */
 
-int	main(int ac, char **av);
+int		main(int ac, char **av);
 char	*parsing(int ac, char **av, t_master *master);
-int	ft_create_threads(t_master *master, t_philo *philo);
-int	ft_init_philo(t_master, t_philo *philo);
+int		ft_create_threads(t_master *master, t_philo *philo);
+int		ft_init_philo(t_master *master, t_philo *philo);
 
 /*
  * ***************************PHILO**************************
  */
 
-int	ft_start_philo(t_master *master, t_philo *philo);
-int	assign_philo_forks(int i, t_master *master, t_philo *philo);
+int		ft_start_philo(t_master *master, t_philo *philo);
+int		link_philo_forks(int i, t_master *master, t_philo *philo);
 
 /*
  * *******************************ROUTINE**********************
@@ -93,19 +92,18 @@ void	*routine(void *arg);
  * *************************************ACTIONS***************
  */
 
-int	ft_parsing_actions(t_master *master, t_philo *philo, int i);
-int	ft_you_are_dead(t_master *master, t_philo *philo);
+int		ft_parsing_actions(t_master *master, t_philo *philo, int i);
+int		ft_you_are_dead(t_master *master, t_philo *philo);
 void	ft_philo_sleep(t_master *master, t_philo *philo, int i);
 void	ft_philo_thinking(t_master *master, t_philo *philo, int i);
-int	ft_philo_fight_foreat(t_master *master, t_philo *philo, int i);
+int		ft_philo_fight_foreat(t_master *master, t_philo *philo, int i);
 void	ft_print_actions(t_master *master, t_philo *philo, int i, char *str);
 
 /*
  * ****************************CLEAN**************************
  */
 
-int ft_quit_free(t_master *master, t_philo *philo);
-
-
+int		ft_quit_free(t_master *master, t_philo *philo);
+int		ft_destroy_all(t_master *master, t_philo *philo);
 
 #endif
