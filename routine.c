@@ -6,11 +6,36 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 19:12:25 by user42            #+#    #+#             */
-/*   Updated: 2022/05/16 19:43:17 by cgranja          ###   ########.fr       */
+/*   Updated: 2022/05/17 00:00:16 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	ft_print_actions(t_master *master, t_philo *philo, int i, char *str)
+{
+	pthread_mutex_lock(philo[i].print);
+	pthread_mutex_lock(master->locktime);
+	if (master->dead != 1)
+	{
+		ft_putnbr(getstart_time() - master->start_time);
+		write(1, " ", 1);
+		ft_putnbr((size_t)i + 1);
+		write(1, " ", 1);
+		ft_putstr(str);
+	}
+	else if (master->dead > 0 && master->end == 0)
+	{
+		master->end = 1;
+		ft_putnbr(getstart_time() - master->start_time);
+		write(1, " ", 1);
+		ft_putnbr((size_t)i + 1);
+		write(1, " ", 1);
+		ft_putstr(str);
+	}
+	pthread_mutex_unlock(master->locktime);
+	pthread_mutex_unlock(philo[i].print);
+}
 
 int	waiting(t_master *master, int b, int c)
 {
@@ -50,9 +75,11 @@ void	*routine(void *arg)
 	pthread_mutex_lock(master->locktime);	
 	iofp = master->iofp;
 	master->iofp++;
-	philo = master->philo;
-	master->start_time = getstart_time();
+	//philo = master->philo;
 	pthread_mutex_unlock(master->locktime);	
+	philo = master->philo;
+	//master->start_time = getstart_time();
+	//pthread_mutex_unlock(master->locktime);	
 	if (master->iofp % 2 != 0 && master->nbphilo != 1)
 		waiting(master, master->start_time, 15);
 	while (1)

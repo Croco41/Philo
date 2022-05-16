@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 22:39:32 by user42            #+#    #+#             */
-/*   Updated: 2022/05/16 19:27:03 by cgranja          ###   ########.fr       */
+/*   Updated: 2022/05/16 22:11:26 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	ft_create_threads(t_master *master, t_philo *philo)
 	i = -1;
 	while (1)
 	{
-		if (ft_you_are_dead(master, philo) == 1)
+		if (ft_you_are_dead(master, philo) == 1 || master->end == 1)
 		{
 			//printf("DEAD\n");
 			break;
@@ -103,6 +103,7 @@ int	main(int ac, char **av)
 		return (1);
 	if (parsing(ac, av, master))
 		return (ft_quit_free(master, NULL));
+	master->tthink = (master->tdie - master->tsleep - master->teat) / 2;
 	philo = (t_philo *)malloc(sizeof(t_philo) * master->nbphilo);
 	if (!philo)
 		return (ft_quit_free(master, NULL));
