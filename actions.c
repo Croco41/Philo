@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 18:50:00 by user42            #+#    #+#             */
-/*   Updated: 2022/05/17 13:19:32 by cgranja          ###   ########.fr       */
+/*   Updated: 2022/05/17 13:27:47 by cgranja          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,23 +86,14 @@ int	ft_philo_sleep(t_master *master, int i)
 	return (0);
 }
 
-/*void	ft_philo_thinking(t_master *master, int i)
-{
-	ft_print_actions(master, i, "is thinking\n");
-//	usleep(master->tthink);
-}*/
-
 int	ft_parsing_actions(t_master *master, t_philo *philo, int i)
 {
 	if (ft_philo_fight_foreat(master, philo, i))
 		return (1);
 	if (ft_philo_sleep(master, i))
 		return (1);
-	//ft_philo_thinking(master, i);
 	ft_print_actions(master, i, "is thinking\n");
 	if (master->maxeat != -1 && philo[i].nbr_meal >= master->maxeat)
 		return (1);
-	//if (master->end == 1)
-	//	return (1);
 	return (0);
 }
