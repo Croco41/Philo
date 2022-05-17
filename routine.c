@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 19:12:25 by user42            #+#    #+#             */
-/*   Updated: 2022/05/17 01:13:33 by user42           ###   ########.fr       */
+/*   Updated: 2022/05/17 12:49:24 by cgranja          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	ft_print_actions(t_master *master, int i, char *str)
 {
-	pthread_mutex_lock(master->print);
 	pthread_mutex_lock(master->locktime);
+	pthread_mutex_lock(master->print);
 	if (master->dead != 1)
 	{
 		ft_putnbr(getstart_time() - master->start_time);
@@ -33,8 +33,8 @@ void	ft_print_actions(t_master *master, int i, char *str)
 		write(1, " ", 1);
 		ft_putstr(str);
 	}
-	pthread_mutex_unlock(master->locktime);
 	pthread_mutex_unlock(master->print);
+	pthread_mutex_unlock(master->locktime);
 }
 
 int	waiting(t_master *master, int b, int c)
@@ -76,8 +76,14 @@ void	*routine(void *arg)
 	master->iofp++;
 	pthread_mutex_unlock(master->locktime);
 	philo = master->philo;
+	pthread_mutex_lock(master->locktime);
 	if (master->iofp % 2 != 0 && master->nbphilo != 1)
+	{
+		pthread_mutex_unlock(master->locktime);
 		waiting(master, master->start_time, 15);
+	}
+	else
+		pthread_mutex_unlock(master->locktime);
 	while (1)
 	{
 		if (ft_parsing_actions(master, philo, iofp) == 1)

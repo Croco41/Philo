@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 22:42:55 by user42            #+#    #+#             */
-/*   Updated: 2022/05/17 01:19:02 by user42           ###   ########.fr       */
+/*   Updated: 2022/05/17 13:18:58 by cgranja          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int		ft_init_philo(t_master *master, t_philo *philo);
  */
 
 int		ft_start_philo(t_master *master, t_philo *philo);
+void	order_lock_forkeat(int i, t_master *master, t_philo *philo);
 int		link_philo_forks(int i, t_master *master, t_philo *philo);
 
 /*

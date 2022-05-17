@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 18:50:00 by user42            #+#    #+#             */
-/*   Updated: 2022/05/17 01:07:23 by user42           ###   ########.fr       */
+/*   Updated: 2022/05/17 13:19:32 by cgranja          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,20 @@
 
 int	ft_onephilo(t_master *master, t_philo *philo, int i)
 {
-	if (master->nbphilo == 1)
+	if (waiting(master, (int)getstart_time(), master->tdie) == 1)
 	{
-		if (waiting(master, (int)getstart_time(), master->tdie) == 0)
-		{
-			pthread_mutex_unlock(philo[i].rfork);
-			pthread_mutex_unlock(philo[i].lfork);
-			return (1);
-		}
+		pthread_mutex_unlock(philo[i].lfork);
+		pthread_mutex_unlock(philo[i].rfork);
+		return (1);
 	}
-	return (0);
+	pthread_mutex_unlock(philo[i].lfork);
+	pthread_mutex_unlock(philo[i].rfork);
+	return (1);
 }
 
 int	ft_philo_fight_foreat(t_master *master, t_philo *philo, int i)
 {
-	pthread_mutex_lock(philo[i].lfork);
-	pthread_mutex_lock(philo[i].rfork);
+	order_lock_forkeat(i, master, philo);
 	ft_print_actions(master, i, "has taken a fork\n");
 	if (master->nbphilo == 1)
 		return (ft_onephilo(master, philo, i));
@@ -43,12 +41,12 @@ int	ft_philo_fight_foreat(t_master *master, t_philo *philo, int i)
 	pthread_mutex_unlock(master->locktime);
 	if (waiting(master, (int)getstart_time(), master->teat) == 1)
 	{
-		pthread_mutex_unlock(philo[i].rfork);
 		pthread_mutex_unlock(philo[i].lfork);
+		pthread_mutex_unlock(philo[i].rfork);
 		return (1);
 	}
-	pthread_mutex_unlock(philo[i].rfork);
 	pthread_mutex_unlock(philo[i].lfork);
+	pthread_mutex_unlock(philo[i].rfork);
 	return (0);
 }	
 
