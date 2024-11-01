@@ -48,7 +48,7 @@ int	waiting(t_master *master, int b, int c)
 			return (1);
 		}
 		pthread_mutex_unlock(master->locktime);
-		usleep(100);
+		usleep(200);
 	}
 	return (0);
 }
@@ -76,14 +76,10 @@ void	*routine(void *arg)
 	master->iofp++;
 	pthread_mutex_unlock(master->locktime);
 	philo = master->philo;
-	pthread_mutex_lock(master->locktime);
-	if (master->iofp % 2 != 0 && master->nbphilo != 1)
+	if (iofp % 2 != 0 && master->nbphilo != 1)
 	{
-		pthread_mutex_unlock(master->locktime);
-		waiting(master, master->start_time, 15);
+		waiting(master, master->start_time, 30);
 	}
-	else
-		pthread_mutex_unlock(master->locktime);
 	while (1)
 	{
 		if (ft_parsing_actions(master, philo, iofp) == 1)
